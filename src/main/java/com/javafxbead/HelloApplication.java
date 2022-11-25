@@ -23,6 +23,12 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+SessionFactory factory = cfg.buildSessionFactory();
+Session session = factory.openSession();
+        CRUD.Create(session);
+
         launch();
+
     }
 }

@@ -9,9 +9,7 @@ import java.math.BigDecimal;
 
 
 public class CRUD {
-    static Session session;
-
-    public static void Create(){
+    public static void Create(Session session){
         System.out.println("Beír()........");
         Transaction t = session.beginTransaction();
         Gep gep = new Gep("gyartoo","tipusa","14.5",16,128,"van",(new BigDecimal(25253)),3);
