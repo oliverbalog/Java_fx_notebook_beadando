@@ -4,14 +4,14 @@
         "http://www.hibernate.org/dtd/hibernate-configuration">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hbm2ddl.auto">update</property>
-        <property name="connection.url">jdbc:mysql://localhost/nbook</property>
+        <property name="connection.url">jdbc:mysql://localhost:3307/nbook</property>
         <property name="connection.username">root</property>
         <property name="connection.password"></property>
-        <mapping class="database.Gep"/>
-        <mapping class="database.Oprendszer"/>
-        <mapping class="database.Processzor"/>
+        <mapping class="database.models.Gep"/>
+        <mapping class="database.models.Processzor"/>
+        <mapping class="database.models.Oprendszer"/>
     </session-factory>
 </hibernate-configuration>

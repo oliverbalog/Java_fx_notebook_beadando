@@ -4,8 +4,11 @@ module com.example.javafxbead {
     requires java.persistence;
     requires org.hibernate.orm.core;
     requires java.naming;
+    requires java.sql;
 
 
-    opens com.javafxbead to javafx.fxml;
-    exports com.javafxbead;
+    opens javafxbead to javafx.fxml;
+    exports javafxbead;
+    exports database.models;
+    opens database.models to org.hibernate.orm.core;
 }

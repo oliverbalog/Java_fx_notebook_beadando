@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Java_fx_notebook_beadando:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46171d35-1ec5-405d-9f13-2cc2cb8a4043" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Java_fx_notebook_beadando_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java_fx_notebook_beadando.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/javafxbead/CRUD.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/javafxbead/MainProgram.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/database/models/Gep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/models/Gep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/database/models/Oprendszer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/models/Oprendszer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/database/models/Processzor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/models/Processzor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/javafxbead/CRUD.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/javafxbead/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/javafxbead/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/javafxbead/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/javafxbead/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/javafxbead/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/javafxbead/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,11 +80,34 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "project.structure.last.edited": "Problems",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/balogoliver/Documents/Egyetem/Java alkalmazások/ea/Java_fx_notebook_beadando/src/main/resources/javafxbead",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.file-colors"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/javafxbead" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="javafxbead.HelloApplication" />
+      <module name="Java_fx_notebook_beadando" />
+      <option name="PROGRAM_PARAMETERS" value="--add-modules jdk.unsupported" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -73,8 +116,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1669385927457</updated>
+      <workItem from="1669552378562" duration="13888000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -90,15 +137,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/javafxbead/HelloApplication.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
