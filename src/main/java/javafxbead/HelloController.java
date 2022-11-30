@@ -1,7 +1,14 @@
 package javafxbead;
 
+import com.google.gson.Gson;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import database.models.Telepites;
 import database.models.TelepitesViewModel;
+import database.models.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -151,5 +158,64 @@ public class HelloController {
         contentPane.getChildren().add(madeMenu);
 
         contentPane.getChildren().add(hbox);
+    }
+
+    @FXML
+    protected void onIndexUsersClick() throws UnirestException {
+
+        contentPane.getChildren().clear();
+
+        var idCol = new TableColumn("ID");
+        var nameCol = new TableColumn("Név");
+        var emailCol = new TableColumn("Email");
+        var genderCol = new TableColumn("Nem");
+        var statusCol = new TableColumn("Státusz");
+
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        contentTable = new TableView<User>();
+
+        contentTable.getColumns().addAll(idCol, nameCol, emailCol, genderCol, statusCol);
+
+        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+
+        HttpResponse<JsonNode> apiResponse = Unirest.get("https://gorest.co.in/public/v2/users").asJson();
+        String responseJsonAsString = apiResponse.getBody().toString();
+        System.out.println(responseJsonAsString);
+
+        User []users = new Gson().fromJson(responseJsonAsString, User[].class);
+
+        for (User user : users) {
+            contentTable.getItems().add(user);
+        }
+
+        contentTable.setPrefWidth(1240);
+        contentTable.setPrefHeight(600);
+        contentTable.relocate(0,30);
+
+        madeMenu.relocate(300,700);
+        contentPane.getChildren().add(madeMenu);
+
+        contentPane.getChildren().add(contentTable);
+    }
+
+    @FXML
+    public void onCreateUserClick(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onReadUserClick(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onUpdateUserClick(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onDeleteUserClick(ActionEvent actionEvent) {
     }
 }
