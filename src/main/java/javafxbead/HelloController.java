@@ -1,14 +1,10 @@
 package javafxbead;
 
-import database.models.Gep;
-import database.models.GepViewModel;
-import database.models.Oprendszer;
+import database.models.Telepites;
+import database.models.TelepitesViewModel;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -17,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.Query;
 import java.io.IOException;
 import java.util.List;
 
@@ -34,55 +31,56 @@ public class HelloController {
     protected void onOlvasMenuClick() throws IOException {
         contentPane.getChildren().clear();
 
-        var idCol = new TableColumn("Id");
-        var gyartoCol = new TableColumn("Gyarto");
-        var tipusCol = new TableColumn("Típus");
-        var kijelzoCol = new TableColumn("Kijelző méret");
-        var memoriaCol = new TableColumn("Memória");
-        var merevlemezCol = new TableColumn("Merevlemez");
-        var videovezerloCol = new TableColumn("Videóvezérlő");
-        var arCol = new TableColumn("Ár");
-        var dbCol = new TableColumn("Db");
-        var processzorCol = new TableColumn("Processzor");
-        var oprendszerCol = new TableColumn("Operációs rendszer");
+        var idCol = new TableColumn("ID");
+        var verzioCol = new TableColumn("Verzió");
+        var datumCol = new TableColumn("Dátum");
+        var gepIdCol = new TableColumn("Gép ID");
+        var helyCol = new TableColumn("Gép helye");
+        var tipusCol = new TableColumn("Gép típusa");
+        var ipcimCol = new TableColumn("Gép IP címe");
+        var szoftverIdCol = new TableColumn("Szoftver ID");
+        var nevCol = new TableColumn("Szoftver neve");
+        var kategoriaCol = new TableColumn("Szoftver kategóriája");
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        gyartoCol.setCellValueFactory(new PropertyValueFactory<>("Gyarto"));
-        tipusCol.setCellValueFactory(new PropertyValueFactory<>("Tipus"));
-        kijelzoCol.setCellValueFactory(new PropertyValueFactory<>("Kijelzo"));
-        memoriaCol.setCellValueFactory(new PropertyValueFactory<>("Memoria"));
-        merevlemezCol.setCellValueFactory(new PropertyValueFactory<>("Merevlemez"));
-        videovezerloCol.setCellValueFactory(new PropertyValueFactory<>("Videovezerlo"));
-        arCol.setCellValueFactory(new PropertyValueFactory<>("Ar"));
-        dbCol.setCellValueFactory(new PropertyValueFactory<>("Db"));
-        processzorCol.setCellValueFactory(new PropertyValueFactory<>("Processzor"));
-        oprendszerCol.setCellValueFactory(new PropertyValueFactory<>("Oprendszer"));
+        verzioCol.setCellValueFactory(new PropertyValueFactory<>("Verzio"));
+        datumCol.setCellValueFactory(new PropertyValueFactory<>("Datum"));
+        gepIdCol.setCellValueFactory(new PropertyValueFactory<>("GepId"));
+        helyCol.setCellValueFactory(new PropertyValueFactory<>("GepHely"));
+        tipusCol.setCellValueFactory(new PropertyValueFactory<>("GepTipus"));
+        ipcimCol.setCellValueFactory(new PropertyValueFactory<>("GepIpcim"));
+        szoftverIdCol.setCellValueFactory(new PropertyValueFactory<>("SzoftverId"));
+        nevCol.setCellValueFactory(new PropertyValueFactory<>("SzoftverNev"));
+        kategoriaCol.setCellValueFactory(new PropertyValueFactory<>("SzoftverKategoria"));
 
-        contentTable = new TableView<>();
+        contentTable = new TableView<TelepitesViewModel>();
 
-        contentTable.getColumns().addAll(idCol, gyartoCol, tipusCol, kijelzoCol,
-                memoriaCol, merevlemezCol, videovezerloCol, arCol, dbCol, processzorCol, oprendszerCol);
+        contentTable.getColumns().addAll(idCol, verzioCol, datumCol, gepIdCol,
+                helyCol, tipusCol, ipcimCol, szoftverIdCol, nevCol, kategoriaCol);
 
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         SessionFactory factory = cfg.buildSessionFactory();
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
-        List<Gep> gepList = session.createQuery("FROM Gep").list();
+        Query q = session.createQuery("FROM Telepites");
+        q.setFirstResult(0);
+        q.setMaxResults(100);
+        List<Telepites> telepitesList = q.getResultList();
         session.close();
 
-        for (Gep gep : gepList) {
-            contentTable.getItems().add(new GepViewModel(
-                    gep.getId(),
-                    gep.getGyarto(),
-                    gep.getTipus(),
-                    gep.getKijelzo(),
-                    gep.getMemoria(),
-                    gep.getMerevlemez(),
-                    gep.getVideovezerlo(),
-                    gep.getAr(),
-                    gep.getDb(),
-                    gep.getProcesszor().getGyarto() + " - " + gep.getProcesszor().getTipus(),
-                    gep.getOprendszer().getNev()
+        for (Telepites telepites : telepitesList) {
+            System.out.println(telepites.getId());
+            contentTable.getItems().add(new TelepitesViewModel(
+                    telepites.getId(),
+                    telepites.getVerzio(),
+                    telepites.getDatum(),
+                    telepites.getGep().getId(),
+                    telepites.getGep().getHely(),
+                    telepites.getGep().getTipus(),
+                    telepites.getGep().getIpcim(),
+                    telepites.getSzoftver().getId(),
+                    telepites.getSzoftver().getNev(),
+                    telepites.getSzoftver().getKategoria()
                     )
             );
         }
@@ -108,7 +106,7 @@ public class HelloController {
         SessionFactory factory = cfg.buildSessionFactory();
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
-        List<String> oprendszerList = session.createQuery("SELECT Nev FROM Oprendszer").list();
+        List<String> szoftverList = session.createQuery("SELECT Nev FROM Szoftver ").list();
         session.close();
 
         var hbox = new HBox();
@@ -123,7 +121,7 @@ public class HelloController {
 
 
         var label = new Label();
-        label.setText("Márka és/vagy típus");
+        label.setText("Szoftver kategóriája");
         label.relocate(10,0);
         var textb = new TextField();
         textb.relocate(10,0);
@@ -131,9 +129,9 @@ public class HelloController {
         textb.setMaxWidth(100);
 
         var label2 = new Label();
-        label2.setText("Válasszon egy operációs rendszert!");
+        label2.setText("Válasszon egy szoftvert!");
         var combobox = new ComboBox<>();
-        combobox.getItems().addAll(oprendszerList);
+        combobox.getItems().addAll(szoftverList);
 
         contentPane.getChildren().clear();
 
