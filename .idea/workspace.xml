@@ -10,12 +10,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46171d35-1ec5-405d-9f13-2cc2cb8a4043" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/database/models/GepViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/javafxbead/Filter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/models/Szoftver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/models/Telepites.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/models/TelepitesViewModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/javafxbead/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/javafxbead/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java_fx_notebook_beadando.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbook.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/models/Gep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/models/Gep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/models/GepViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/models/Oprendszer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/models/Processzor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/javafxbead/CRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/javafxbead/CRUD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/javafxbead/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/javafxbead/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/javafxbead/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/javafxbead/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +78,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/balogoliver/Documents/Egyetem/Java alkalmazások/ea/Java_fx_notebook_beadando/src/main/resources/javafxbead",
+    "last_opened_file_path": "/Users/balogoliver/Documents/Egyetem/Java alkalmazások/ea/Java_fx_szoftverleltar",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
@@ -106,7 +114,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1669385927457</updated>
-      <workItem from="1669552378562" duration="22914000" />
+      <workItem from="1669552378562" duration="22942000" />
+      <workItem from="1669661965904" duration="7578000" />
+      <workItem from="1669837990356" duration="678000" />
     </task>
     <servers />
   </component>

@@ -1,8 +1,5 @@
 package javafxbead;
 
-import database.models.Gep;
-import database.models.Oprendszer;
-import database.models.Processzor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

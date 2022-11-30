@@ -1,27 +1,30 @@
 package database.models;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "gep")
 public class Gep {
-
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "id")
     private Integer Id;
-    @Column(name = "gyarto")
-    private String Gyarto;
+    @Column(name = "hely")
+    private String Hely;
+
+    public Gep() {
+    }
+
+    public Gep(Integer id, String hely, String tipus, String ipcim) {
+        Id = id;
+        Hely = hely;
+        Tipus = tipus;
+        Ipcim = ipcim;
+    }
+
     @Column(name = "tipus")
     private String Tipus;
-    @Column(name = "kijelzo")
-    private String Kijelzo;
-    @Column(name = "memoria")
-    private Integer Memoria;
-    @Column(name = "merevlemez")
-    private Integer Merevlemez;
+    @Column(name = "ipcim")
+    private String Ipcim;
 
     public Integer getId() {
         return Id;
@@ -31,12 +34,12 @@ public class Gep {
         Id = id;
     }
 
-    public String getGyarto() {
-        return Gyarto;
+    public String getHely() {
+        return Hely;
     }
 
-    public void setGyarto(String gyarto) {
-        Gyarto = gyarto;
+    public void setHely(String hely) {
+        Hely = hely;
     }
 
     public String getTipus() {
@@ -47,102 +50,11 @@ public class Gep {
         Tipus = tipus;
     }
 
-
-    public Gep(Integer id, String gyarto, String tipus, String kijelzo, Integer memoria, Integer merevlemez, String videovezerlo, Integer ar, Integer db, database.models.Processzor processzor, database.models.Oprendszer oprendszer) {
-        Id = id;
-        Gyarto = gyarto;
-        Tipus = tipus;
-        Kijelzo = kijelzo;
-        Memoria = memoria;
-        Merevlemez = merevlemez;
-        Videovezerlo = videovezerlo;
-        Ar = ar;
-        Db = db;
-        Processzor = processzor;
-        Oprendszer = oprendszer;
+    public String getIpcim() {
+        return Ipcim;
     }
 
-    public Gep(){
-
+    public void setIpcim(String ipcim) {
+        Ipcim = ipcim;
     }
-
-    public String getKijelzo() {
-        return Kijelzo;
-    }
-
-    public void setKijelzo(String kijelzo) {
-        Kijelzo = kijelzo;
-    }
-
-    public Integer getMemoria() {
-        return Memoria;
-    }
-
-    public void setMemoria(Integer memoria) {
-        Memoria = memoria;
-    }
-
-    public Integer getMerevlemez() {
-        return Merevlemez;
-    }
-
-    public void setMerevlemez(Integer merevlemez) {
-        Merevlemez = merevlemez;
-    }
-
-    public String getVideovezerlo() {
-        return Videovezerlo;
-    }
-
-    public void setVideovezerlo(String videovezerlo) {
-        Videovezerlo = videovezerlo;
-    }
-
-    public Integer getAr() {
-        return Ar;
-    }
-
-    public void setAr(Integer ar) {
-        Ar = ar;
-    }
-
-    public Integer getDb() {
-        return Db;
-    }
-
-    public void setDb(Integer db) {
-        Db = db;
-    }
-
-    @Column(name = "videovezerlo")
-    private String Videovezerlo;
-    @Column(name = "ar")
-    private Integer Ar;
-    @Column(name = "db")
-    private Integer Db;
-
-    @JoinColumn(name="processzorid")
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Processzor Processzor;
-
-    public database.models.Processzor getProcesszor() {
-        return Processzor;
-    }
-
-    public void setProcesszor(database.models.Processzor processzor) {
-        Processzor = processzor;
-    }
-
-    public database.models.Oprendszer getOprendszer() {
-        return Oprendszer;
-    }
-
-    public void setOprendszer(database.models.Oprendszer oprendszer) {
-        Oprendszer = oprendszer;
-    }
-
-    @JoinColumn(name="oprendszerid")
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Oprendszer Oprendszer;
-
 }
