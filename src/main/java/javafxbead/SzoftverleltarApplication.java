@@ -12,7 +12,7 @@ import java.io.IOException;
 public class SzoftverleltarApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SzoftverleltarApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SzoftverleltarApplication.class.getResource("szoftverleltar.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1240, 800);
         stage.setTitle("Hello!");
         stage.setScene(scene);
@@ -23,7 +23,6 @@ public class SzoftverleltarApplication extends Application {
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         SessionFactory factory = cfg.buildSessionFactory();
 
-        CRUD.Create(factory);
         factory.close();
 
         launch();

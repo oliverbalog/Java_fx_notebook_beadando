@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" prefHeight="519.0" prefWidth="877.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxbead.SzoftverleltarController">
+   <MenuBar fx:id="menuBar" prefHeight="7.0" prefWidth="272.0">
+     <menus>
+       <Menu fx:id="crudMenu" mnemonicParsing="false" text="CRUD Menü">
+         <items>
+           <MenuItem fx:id="olvasMenu" mnemonicParsing="false" onAction="#onOlvasMenuClick" text="Olvas" />
+               <MenuItem fx:id="olvasFilterMenu" mnemonicParsing="false" onAction="#onOlvasFilterMenuClick" text="Olvasás szűréssel" />
+               <MenuItem fx:id="irasMenu" mnemonicParsing="false" text="írás" />
+               <MenuItem fx:id="modositasMenu" mnemonicParsing="false" text="Módosítás" />
+               <MenuItem fx:id="torlesMenu" mnemonicParsing="false" text="Törlés" />
+         </items>
+       </Menu>
+     <Menu fx:id="restMenu" mnemonicParsing="false" text="REST Menü">
+         <items>
+             <MenuItem fx:id="indexUser" mnemonicParsing="false" onAction="#onIndexUsersClick" text="Felhasználók listázása" />
+             <MenuItem fx:id="createUser" mnemonicParsing="false" onAction="#onCreateUserClick" text="Új felhasználó" />
+             <MenuItem fx:id="readUser" mnemonicParsing="false" onAction="#onReadUserClick" text="Felhasználó keresés" />
+         </items>
+     </Menu>
+     </menus>
+   </MenuBar>
+   <Pane fx:id="contentPane" prefHeight="519.0" prefWidth="1240.0"></Pane>
+   <Pane fx:id="madeMenu" prefHeight="200.0" prefWidth="200.0">
+      <children>
+         <VBox alignment="TOP_CENTER" prefHeight="43.0" prefWidth="272.0">
+            <children>
+               <Label prefHeight="17.0" prefWidth="168.0" text="Java előadás badandó feladat" />
+               <Label text="Balog Olivér, Budai Zsolt" />
+            </children>
+         </VBox>
+      </children>
+   </Pane>
+</VBox>
