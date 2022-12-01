@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="519.0" prefWidth="877.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxbead.HelloController">
+<VBox alignment="TOP_CENTER" prefHeight="519.0" prefWidth="877.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxbead.SzoftverleltarController">
    <MenuBar fx:id="menuBar" prefHeight="7.0" prefWidth="272.0">
      <menus>
        <Menu fx:id="crudMenu" mnemonicParsing="false" text="CRUD Menü">

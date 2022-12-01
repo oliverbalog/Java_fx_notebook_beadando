@@ -17,7 +17,7 @@ import javax.persistence.Query;
 import java.io.IOException;
 import java.util.List;
 
-public class HelloController {
+public class SzoftverleltarController {
     private SessionFactory factory;
     @FXML
     private Pane contentPane;
