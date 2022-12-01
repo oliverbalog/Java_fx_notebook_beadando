@@ -30,6 +30,7 @@ import org.hibernate.cfg.Configuration;
 
 import javax.persistence.Query;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SzoftverleltarController {
@@ -78,15 +79,14 @@ public class SzoftverleltarController {
         Transaction t = session.beginTransaction();
         Query q;
 
-        if(filter == null) {
+        if (filter == null) {
             q = session.createQuery("FROM Telepites");
-        }
-        else{
+        } else {
             var hql = "FROM Telepites T";
-            if(!filter.getPcType().isEmpty() || !filter.getSoftName().isEmpty() || !filter.getPcPlace().isEmpty() || )
-            if(!filter.getPcPlace().isEmpty()){
+            if (!filter.getPcType().isEmpty() || !filter.getSoftName().isEmpty() || !filter.getPcPlace().isEmpty())
+                if (!filter.getPcPlace().isEmpty()) {
 
-            }
+                }
             q = session.createQuery(hql);
         }
         q.setFirstResult(0);
@@ -97,36 +97,36 @@ public class SzoftverleltarController {
         for (Telepites telepites : telepitesList) {
             System.out.println(telepites.getId());
             contentTable.getItems().add(new TelepitesViewModel(
-                    telepites.getId(),
-                    telepites.getVerzio(),
-                    telepites.getDatum(),
-                    telepites.getGep().getId(),
-                    telepites.getGep().getHely(),
-                    telepites.getGep().getTipus(),
-                    telepites.getGep().getIpcim(),
-                    telepites.getSzoftver().getId(),
-                    telepites.getSzoftver().getNev(),
-                    telepites.getSzoftver().getKategoria()
+                            telepites.getId(),
+                            telepites.getVerzio(),
+                            telepites.getDatum(),
+                            telepites.getGep().getId(),
+                            telepites.getGep().getHely(),
+                            telepites.getGep().getTipus(),
+                            telepites.getGep().getIpcim(),
+                            telepites.getSzoftver().getId(),
+                            telepites.getSzoftver().getNev(),
+                            telepites.getSzoftver().getKategoria()
                     )
             );
         }
 
         contentTable.setPrefWidth(1240);
         contentTable.setPrefHeight(600);
-        contentTable.relocate(0,30);
+        contentTable.relocate(0, 30);
 
-        madeMenu.relocate(300,700);
+        madeMenu.relocate(300, 700);
         contentPane.getChildren().add(madeMenu);
 
         contentPane.getChildren().add(contentTable);
 
         factory.close();
-
     }
 
     @FXML
-    protected void onOlvasFilterMenuClick() throws IOException{
-            contentPane.getChildren().clear();
+    protected void onOlvasFilterMenuClick() throws IOException {
+
+        contentPane.getChildren().clear();
 
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         SessionFactory factory = cfg.buildSessionFactory();
@@ -136,27 +136,27 @@ public class SzoftverleltarController {
         session.close();
 
         var hbox = new HBox();
-        hbox.relocate(20,5);
-        hbox.setPrefSize(contentPane.getWidth(),800);
+        hbox.relocate(20, 5);
+        hbox.setPrefSize(contentPane.getWidth(), 800);
 
         var vbox1 = new VBox();
-        vbox1.setPrefSize(300,300);
+        vbox1.setPrefSize(300, 300);
 
         var vbox2 = new VBox();
-        vbox2.setPrefSize(300,300);
+        vbox2.setPrefSize(300, 300);
 
         var vbox3 = new VBox();
-        vbox3.setPrefSize(300,300);
+        vbox3.setPrefSize(300, 300);
 
         var vbox4 = new VBox();
-        vbox4.setPrefSize(300,300);
+        vbox4.setPrefSize(300, 300);
 
         var label = new Label();
         label.setText("Gép helye");
-        label.relocate(40,0);
+        label.relocate(40, 0);
         vbox1.getChildren().add(label);
         var textb = new TextField();
-        textb.relocate(40,0);
+        textb.relocate(40, 0);
         textb.setPrefWidth(100);
         textb.setMaxWidth(100);
         vbox1.getChildren().add(textb);
@@ -168,7 +168,7 @@ public class SzoftverleltarController {
         combobox.getItems().addAll(szoftverList);
         vbox2.getChildren().add(combobox);
 
-        String radioVal="";
+        String radioVal = "";
         var labelRadio = new Label();
         labelRadio.setText("Válasszon számítógép típust!");
         vbox3.getChildren().add(labelRadio);
@@ -195,7 +195,7 @@ public class SzoftverleltarController {
         fajlCheck.setText("Fájlkezelők");
         var mindCheck = new CheckBox();
         mindCheck.setText("Mind");
-        vbox4.getChildren().addAll(labelCheck,toolsCheck,hangCheck,pluginCheck,fajlCheck,mindCheck);
+        vbox4.getChildren().addAll(labelCheck, toolsCheck, hangCheck, pluginCheck, fajlCheck, mindCheck);
         mindCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
@@ -208,28 +208,26 @@ public class SzoftverleltarController {
 
         var srchBtn = new Button();
         srchBtn.setText("Keresés");
-        srchBtn.relocate(500,100);
+        srchBtn.relocate(500, 100);
 
-        hbox.getChildren().addAll(vbox1,vbox2,vbox3,vbox4);
+        hbox.getChildren().addAll(vbox1, vbox2, vbox3, vbox4);
         textb.autosize();
 
         contentPane.getChildren().clear();
 
-        contentPane.getChildren().addAll(madeMenu,hbox,srchBtn);
+        contentPane.getChildren().addAll(madeMenu, hbox, srchBtn);
 
 
-
-
-        srchBtn.setOnAction(event ->{
-            var selRadBtn =(RadioButton)toggleGroup.getSelectedToggle();
+        srchBtn.setOnAction(event -> {
+            var selRadBtn = (RadioButton) toggleGroup.getSelectedToggle();
             var selRadVal = selRadBtn.getText();
             searchWithFiltersResult(new Filter(textb.getText(), combobox.getValue().toString(),
-                    selRadVal,toolsCheck.isSelected(),hangCheck.isSelected(),pluginCheck.isSelected(),
+                    selRadVal, toolsCheck.isSelected(), hangCheck.isSelected(), pluginCheck.isSelected(),
                     fajlCheck.isSelected()));
         });
     }
 
-    private void searchWithFiltersResult(Filter filter){
+    private void searchWithFiltersResult(Filter filter) {
 
     }
 
@@ -279,7 +277,12 @@ public class SzoftverleltarController {
                                         .asJson();
 
                                 contentTable.getItems().clear();
-                                setContentTable(contentTable);
+
+                                User[] users = getUsers();
+
+                                for (User user : users) {
+                                    contentTable.getItems().add(user);
+                                }
 
                             } catch (UnirestException e) {
                                 e.printStackTrace();
@@ -291,13 +294,18 @@ public class SzoftverleltarController {
 
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
 
-        setContentTable(contentTable);
+
+        User[] users = getUsers();
+
+        for (User user : users) {
+            contentTable.getItems().add(user);
+        }
 
         contentTable.setPrefWidth(1240);
         contentTable.setPrefHeight(600);
-        contentTable.relocate(0,30);
+        contentTable.relocate(0, 30);
 
-        madeMenu.relocate(300,700);
+        madeMenu.relocate(300, 700);
         contentPane.getChildren().add(madeMenu);
 
         contentPane.getChildren().add(contentTable);
@@ -314,24 +322,21 @@ public class SzoftverleltarController {
         });
     }
 
-    private void setContentTable(TableView contentTable)
-    {
+    private User[] getUsers() {
         try {
 
             HttpResponse<JsonNode> apiResponse = Unirest.get("https://gorest.co.in/public/v2/users").asJson();
             String responseJsonAsString = apiResponse.getBody().toString();
 
-            //System.out.println(responseJsonAsString);
+            User[] users = new Gson().fromJson(responseJsonAsString, User[].class);
 
-            User []users = new Gson().fromJson(responseJsonAsString, User[].class);
-
-            for (User user : users) {
-                contentTable.getItems().add(user);
-            }
+            return users;
 
         } catch (UnirestException e) {
             e.printStackTrace();
         }
+
+        return new User[0];
     }
 
     @FXML
@@ -407,38 +412,38 @@ public class SzoftverleltarController {
 
         submit.setOnAction(new EventHandler<ActionEvent>() {
 
-           @Override
-           public void handle(ActionEvent actionEvent) {
-               //https://gorest.co.in/public/v2/users
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //https://gorest.co.in/public/v2/users
 
-               if (
-                       !name.getText().isEmpty() &&
-                       !email.getText().isEmpty() &&
-                       !genderHelper.getText().isEmpty() &&
-                       !statusHelper.getText().isEmpty()
-               ) {
+                if (
+                        !name.getText().isEmpty() &&
+                                !email.getText().isEmpty() &&
+                                !genderHelper.getText().isEmpty() &&
+                                !statusHelper.getText().isEmpty()
+                ) {
 
-                   try {
-                       HttpResponse<JsonNode> response = Unirest.post("https://gorest.co.in/public/v2/users")
-                               .header("Authorization", "Bearer dad5a814f147a1aeabd5a64c90bc36f3c6ac42a5c6b05b36d4e5c4bc2c54542c")
-                               .field("name", name.getText())
-                               .field("email", email.getText())
-                               .field("gender", genderHelper.getText())
-                               .field("status", statusHelper.getText())
-                               .asJson();
+                    try {
+                        HttpResponse<JsonNode> response = Unirest.post("https://gorest.co.in/public/v2/users")
+                                .header("Authorization", "Bearer dad5a814f147a1aeabd5a64c90bc36f3c6ac42a5c6b05b36d4e5c4bc2c54542c")
+                                .field("name", name.getText())
+                                .field("email", email.getText())
+                                .field("gender", genderHelper.getText())
+                                .field("status", statusHelper.getText())
+                                .asJson();
 
-                       System.out.println(response.getStatus());
+                        System.out.println(response.getStatus());
 
-                       label.setText(response.getStatusText() + " (" + response.getStatus() + "):" + response.getBody().toString());
+                        label.setText(response.getStatusText() + " (" + response.getStatus() + "):" + response.getBody().toString());
 
-                   } catch (UnirestException e) {
+                    } catch (UnirestException e) {
                         e.printStackTrace();
-                   }
+                    }
 
-               } else {
-                   label.setText("Minden mező kötelező");
-               }
-           }
+                } else {
+                    label.setText("Minden mező kötelező");
+                }
+            }
         });
 
         clear.setOnAction(new EventHandler<ActionEvent>() {
@@ -454,15 +459,71 @@ public class SzoftverleltarController {
     }
 
 
-    @FXML
     public void onReadUserClick(ActionEvent actionEvent) {
+
+        contentPane.getChildren().clear();
+
+        //Creating a GridPane container
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setVgap(5);
+        grid.setHgap(5);
+
+        User[] users = getUsers();
+        String[] userEmails = new String[]{};
+        List<String> emails = new ArrayList<>();
+
+        for (User user : users) {
+            emails.add(user.getEmail());
+        }
+
+        ChoiceBox userChoice = new ChoiceBox(FXCollections.observableArrayList(emails));
+        userChoice.setPrefWidth(150);
+        GridPane.setConstraints(userChoice, 0, 0);
+        grid.getChildren().add(userChoice);
+
+        final TextField userHelper = new TextField();
+
+        userChoice.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number value, Number newValue) {
+                userHelper.setText(emails.get(newValue.intValue()));
+            }
+        });
+
+        Button submit = new Button("Részletek mutatása");
+        GridPane.setConstraints(submit, 1, 0);
+        grid.getChildren().add(submit);
+
+        //Adding a Label
+        final Label label = new Label();
+        label.setPrefWidth(500);
+        GridPane.setConstraints(label, 0, 1);
+        GridPane.setColumnSpan(label, 3);
+        grid.getChildren().add(label);
+        submit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                if (!userHelper.getText().isEmpty()) {
+                    Integer foundId = 0;
+
+                    for (int k = 0; k < users.length; k++) {
+                        if (users[k].getEmail().equals(userHelper.getText())) {
+                            foundId = k;
+                        }
+                    }
+
+                    User found = users[foundId];
+                    label.setText("[" + found.getId().toString() + "] " + found.getName() + " | " + found.getEmail() + " | " + found.getGender() + " | " + found.getStatus());
+
+                } else {
+                    label.setText("Válassz egy email címet");
+                }
+            }
+        });
+
+        contentPane.getChildren().add(grid);
     }
 
-    @FXML
-    public void onUpdateUserClick(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void onDeleteUserClick(ActionEvent actionEvent) {
-    }
 }
