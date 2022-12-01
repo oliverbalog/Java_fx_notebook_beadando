@@ -10,8 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46171d35-1ec5-405d-9f13-2cc2cb8a4043" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/system.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/javafxbead/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/javafxbead/HelloController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
