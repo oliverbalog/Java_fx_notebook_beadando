@@ -108,7 +108,7 @@ public class HelloController {
         Transaction t = session.beginTransaction();
         List<String> szoftverList = session.createQuery("SELECT Nev FROM Szoftver ").list();
         session.close();
-
+//fweanfpwenfianwef
         var hbox = new HBox();
         hbox.relocate(0,5);
         hbox.setPrefSize(contentPane.getWidth(),800);
