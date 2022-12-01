@@ -1,0 +1,156 @@
+Index: src/main/java/javafxbead/HelloController.java
+===================================================================
+diff --git a/src/main/java/javafxbead/HelloController.java b/src/main/java/javafxbead/HelloController.java
+--- a/src/main/java/javafxbead/HelloController.java	
++++ b/src/main/java/javafxbead/HelloController.java	
+@@ -30,6 +30,8 @@
+ 
+ import javax.persistence.Query;
+ import java.io.IOException;
++import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.List;
+ 
+ public class HelloController {
+@@ -214,7 +216,12 @@
+                                         .asJson();
+ 
+                                 contentTable.getItems().clear();
+-                                setContentTable(contentTable);
++
++                                User[] users = getUsers();
++
++                                for (User user : users) {
++                                    contentTable.getItems().add(user);
++                                }
+ 
+                             } catch (UnirestException e) {
+                                 e.printStackTrace();
+@@ -226,7 +233,11 @@
+ 
+         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+ 
+-        setContentTable(contentTable);
++        User[] users = getUsers();
++
++        for (User user : users) {
++            contentTable.getItems().add(user);
++        }
+ 
+         contentTable.setPrefWidth(1240);
+         contentTable.setPrefHeight(600);
+@@ -249,7 +260,7 @@
+         });
+     }
+ 
+-    private void setContentTable(TableView contentTable)
++    private User[] getUsers()
+     {
+         try {
+ 
+@@ -260,13 +271,13 @@
+ 
+             User []users = new Gson().fromJson(responseJsonAsString, User[].class);
+ 
+-            for (User user : users) {
+-                contentTable.getItems().add(user);
+-            }
++            return users;
+ 
+         } catch (UnirestException e) {
+             e.printStackTrace();
+         }
++
++        return new User[0];
+     }
+ 
+     @FXML
+@@ -345,7 +356,6 @@
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //https://gorest.co.in/public/v2/users
+-
+                if (
+                        !name.getText().isEmpty() &&
+                        !email.getText().isEmpty() &&
+@@ -391,13 +401,75 @@
+ 
+     @FXML
+     public void onReadUserClick(ActionEvent actionEvent) {
++
++        contentPane.getChildren().clear();
++
++        //Creating a GridPane container
++        GridPane grid = new GridPane();
++        grid.setPadding(new Insets(10, 10, 10, 10));
++        grid.setVgap(5);
++        grid.setHgap(5);
++
++        User[] users = getUsers();
++
++        String[] userEmails = new String[]{};
++        List<String> emails = new ArrayList<>();
++
++        for (User user : users) {
++            emails.add(user.getEmail());
++        }
++
++        ChoiceBox userChoice = new ChoiceBox(FXCollections.observableArrayList(emails));
++        userChoice.setPrefWidth(150);
++        GridPane.setConstraints(userChoice, 0, 0);
++        grid.getChildren().add(userChoice);
++        final TextField userHelper = new TextField();
++
++        userChoice.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
++            @Override
++            public void changed(ObservableValue<? extends Number> observableValue, Number value, Number newValue) {
++                userHelper.setText(emails.get(newValue.intValue()));
++            }
++        });
++
++        Button submit = new Button("Részletek mutatása");
++        GridPane.setConstraints(submit, 1, 0);
++        grid.getChildren().add(submit);
++
++        //Adding a Label
++        final Label label = new Label();
++        label.setPrefWidth(500);
++        GridPane.setConstraints(label, 0, 1);
++        GridPane.setColumnSpan(label, 3);
++        grid.getChildren().add(label);
++
++        submit.setOnAction(new EventHandler<ActionEvent>() {
++            @Override
++            public void handle(ActionEvent actionEvent) {
++
++                if (!userHelper.getText().isEmpty()) {
++
++                    Integer foundId = 0;
++
++                    for(int k = 0; k < users.length; k++) {
++                        if (users[k].getEmail().equals(userHelper.getText())) {
++                            foundId = k;
++                        }
++                    }
++
++                    User found = users[foundId];
++                    label.setText("[" + found.getId().toString() + "] " + found.getName() + " | " + found.getEmail() + " | " + found.getGender()  + " | " + found.getStatus());
++
++                } else {
++                    label.setText("Válassz egy email címet");
++                }
++            }
++        });
++
++        contentPane.getChildren().add(grid);
+     }
+ 
+     @FXML
+     public void onUpdateUserClick(ActionEvent actionEvent) {
+     }
+-
+-    @FXML
+-    public void onDeleteUserClick(ActionEvent actionEvent) {
+-    }
+ }
+\ No newline at end of file
