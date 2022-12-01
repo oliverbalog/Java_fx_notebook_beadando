@@ -91,7 +91,6 @@ public class SzoftverleltarController {
         session.close();
 
         for (Telepites telepites : telepitesList) {
-            System.out.println(telepites.getId());
             contentTable.getItems().add(new TelepitesViewModel(
                             telepites.getId(),
                             telepites.getVerzio(),
@@ -186,14 +185,19 @@ public class SzoftverleltarController {
         labelCheck.setText("Szoftver fajták");
         var toolsCheck = new CheckBox();
         toolsCheck.setText("Segédszoftverek");
+        toolsCheck.setSelected(true);
         var hangCheck = new CheckBox();
         hangCheck.setText("Hang szoftverek");
+        hangCheck.setSelected(true);
         var pluginCheck = new CheckBox();
         pluginCheck.setText("Pluginok");
+        pluginCheck.setSelected(true);
         var fajlCheck = new CheckBox();
         fajlCheck.setText("Fájlkezelők");
+        fajlCheck.setSelected(true);
         var mindCheck = new CheckBox();
         mindCheck.setText("Mind");
+        mindCheck.setSelected(true);
         vbox4.getChildren().addAll(labelCheck, toolsCheck, hangCheck, pluginCheck, fajlCheck, mindCheck);
         mindCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -236,9 +240,31 @@ public class SzoftverleltarController {
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
 
-        var hql = "FROM Telepites";
+        if(filter.getSoftName()=="Mind"){filter.setSoftName("");}
+        if(filter.getPcType()=="Mind"){filter.setPcType("");}
+        filter.setPcType(filter.getPcType().toLowerCase());
+        filter.setSoftName(filter.getSoftName().toLowerCase());
+        filter.setPcPlace(filter.getPcPlace().toLowerCase());
 
 
+        var hql = "FROM Telepites T WHERE lower(T.Gep.Hely) LIKE '%"+filter.getPcPlace()+"%' and lower(T.Gep.Tipus) LIKE '%"+filter.getPcType()+"%' " +
+                "and lower(T.Szoftver.Nev) LIKE '%"+filter.getSoftName()+"%'";
+
+        if(!filter.isFajlCheck() || !filter.isPluginCheck() || !filter.isHangCheck() || !filter.isToolsCheck()) {
+            System.out.println("bug");
+            hql+=" ";
+            if (filter.isFajlCheck()) {
+                hql += "and (lower(T.Szoftver.Kategoria) LIKE '%fájl%' or lower(T.Szoftver.Kategoria) LIKE '%pdf%') ";
+            }
+            if (filter.isHangCheck()) {
+                hql += "and (lower(T.Szoftver.Kategoria) LIKE '%hang%' or lower(T.Szoftver.Kategoria) LIKE '%média%') ";
+            }
+            if (filter.isPluginCheck()) {
+                hql += "and (lower(T.Szoftver.Kategoria) LIKE '%plug-in%';)";
+            }
+
+        }
+        System.out.println(hql);
         Query q = session.createQuery(hql);
 
         q.setFirstResult(0);
@@ -247,7 +273,6 @@ public class SzoftverleltarController {
         session.close();
 
         for (Telepites telepites : telepitesList) {
-            System.out.println(telepites.getId());
             contentTable.getItems().add(new TelepitesViewModel(
                             telepites.getId(),
                             telepites.getVerzio(),
