@@ -20,6 +20,15 @@
                <MenuItem fx:id="torlesMenu" mnemonicParsing="false" text="Törlés" />
          </items>
        </Menu>
+     <Menu fx:id="restMenu" mnemonicParsing="false" text="REST Menü">
+         <items>
+             <MenuItem fx:id="indexUser" mnemonicParsing="false" onAction="#onIndexUsersClick" text="Felhasználók listázása" />
+             <MenuItem fx:id="createUser" mnemonicParsing="false" onAction="#onCreateUserClick" text="Új felhasználó" />
+             <MenuItem fx:id="readUser" mnemonicParsing="false" onAction="#onReadUserClick" text="Felhasználó keresés" />
+             <MenuItem fx:id="editMenu" mnemonicParsing="false" onAction="#onUpdateUserClick" text="Felhasználó módosítása" />
+             <MenuItem fx:id="deleteMenu" mnemonicParsing="false" onAction="#onDeleteUserClick" text="Törlés" />
+         </items>
+     </Menu>
      </menus>
    </MenuBar>
    <Pane fx:id="contentPane" prefHeight="519.0" prefWidth="1240.0"></Pane>
