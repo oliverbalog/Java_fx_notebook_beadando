@@ -9,7 +9,7 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/szoftverleltar</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">redalert</property>
+        <property name="connection.password"></property>
         <mapping class="database.models.Gep"/>
         <mapping class="database.models.Szoftver"/>
         <mapping class="database.models.Telepites"/>

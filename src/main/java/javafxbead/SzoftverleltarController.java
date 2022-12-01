@@ -32,7 +32,7 @@ import javax.persistence.Query;
 import java.io.IOException;
 import java.util.List;
 
-public class HelloController {
+public class SzoftverleltarController {
     private SessionFactory factory;
     @FXML
     private Pane contentPane;
@@ -43,9 +43,8 @@ public class HelloController {
 
 
     @FXML
-    protected void onOlvasMenuClick() throws IOException {
+    protected void onOlvasMenuClick(Filter filter) throws IOException {
         contentPane.getChildren().clear();
-
         var idCol = new TableColumn("ID");
         var verzioCol = new TableColumn("Verzió");
         var datumCol = new TableColumn("Dátum");
@@ -77,7 +76,19 @@ public class HelloController {
         SessionFactory factory = cfg.buildSessionFactory();
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
-        Query q = session.createQuery("FROM Telepites");
+        Query q;
+
+        if(filter == null) {
+            q = session.createQuery("FROM Telepites");
+        }
+        else{
+            var hql = "FROM Telepites T";
+            if(!filter.getPcType().isEmpty() || !filter.getSoftName().isEmpty() || !filter.getPcPlace().isEmpty() || )
+            if(!filter.getPcPlace().isEmpty()){
+
+            }
+            q = session.createQuery(hql);
+        }
         q.setFirstResult(0);
         q.setMaxResults(100);
         List<Telepites> telepitesList = q.getResultList();
@@ -125,7 +136,7 @@ public class HelloController {
         session.close();
 
         var hbox = new HBox();
-        hbox.relocate(0,5);
+        hbox.relocate(20,5);
         hbox.setPrefSize(contentPane.getWidth(),800);
 
         var vbox1 = new VBox();
@@ -134,38 +145,92 @@ public class HelloController {
         var vbox2 = new VBox();
         vbox2.setPrefSize(300,300);
 
+        var vbox3 = new VBox();
+        vbox3.setPrefSize(300,300);
+
+        var vbox4 = new VBox();
+        vbox4.setPrefSize(300,300);
 
         var label = new Label();
-        label.setText("Szoftver kategóriája");
-        label.relocate(10,0);
+        label.setText("Gép helye");
+        label.relocate(40,0);
+        vbox1.getChildren().add(label);
         var textb = new TextField();
-        textb.relocate(10,0);
+        textb.relocate(40,0);
         textb.setPrefWidth(100);
         textb.setMaxWidth(100);
+        vbox1.getChildren().add(textb);
 
         var label2 = new Label();
         label2.setText("Válasszon egy szoftvert!");
+        vbox2.getChildren().add(label2);
         var combobox = new ComboBox<>();
         combobox.getItems().addAll(szoftverList);
+        vbox2.getChildren().add(combobox);
+
+        String radioVal="";
+        var labelRadio = new Label();
+        labelRadio.setText("Válasszon számítógép típust!");
+        vbox3.getChildren().add(labelRadio);
+        var toggleGroup = new ToggleGroup();
+        var radioButton1 = new RadioButton();
+        radioButton1.setToggleGroup(toggleGroup);
+        radioButton1.setText("Notebook");
+        vbox3.getChildren().add(radioButton1);
+        var radioButton2 = new RadioButton();
+        radioButton2.setToggleGroup(toggleGroup);
+        radioButton2.setText("Asztali");
+        vbox3.getChildren().add(radioButton2);
+
+
+        var labelCheck = new Label();
+        labelCheck.setText("Szoftver fajták");
+        var toolsCheck = new CheckBox();
+        toolsCheck.setText("Segédszoftverek");
+        var hangCheck = new CheckBox();
+        hangCheck.setText("Hang szoftverek");
+        var pluginCheck = new CheckBox();
+        pluginCheck.setText("Pluginok");
+        var fajlCheck = new CheckBox();
+        fajlCheck.setText("Fájlkezelők");
+        var mindCheck = new CheckBox();
+        mindCheck.setText("Mind");
+        vbox4.getChildren().addAll(labelCheck,toolsCheck,hangCheck,pluginCheck,fajlCheck,mindCheck);
+        mindCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                toolsCheck.setSelected(t1);
+                hangCheck.setSelected(t1);
+                pluginCheck.setSelected(t1);
+                fajlCheck.setSelected(t1);
+            }
+        });
+
+        var srchBtn = new Button();
+        srchBtn.setText("Keresés");
+        srchBtn.relocate(500,100);
+
+        hbox.getChildren().addAll(vbox1,vbox2,vbox3,vbox4);
+        textb.autosize();
 
         contentPane.getChildren().clear();
 
+        contentPane.getChildren().addAll(madeMenu,hbox,srchBtn);
 
 
-        vbox1.getChildren().add(label);
-        vbox1.getChildren().add(textb);
-
-        vbox2.getChildren().add(label2);
-        vbox2.getChildren().add(combobox);
 
 
-        hbox.getChildren().add(vbox1);
-        hbox.getChildren().add(vbox2);
-        textb.autosize();
+        srchBtn.setOnAction(event ->{
+            var selRadBtn =(RadioButton)toggleGroup.getSelectedToggle();
+            var selRadVal = selRadBtn.getText();
+            searchWithFiltersResult(new Filter(textb.getText(), combobox.getValue().toString(),
+                    selRadVal,toolsCheck.isSelected(),hangCheck.isSelected(),pluginCheck.isSelected(),
+                    fajlCheck.isSelected()));
+        });
+    }
 
-        contentPane.getChildren().add(madeMenu);
+    private void searchWithFiltersResult(Filter filter){
 
-        contentPane.getChildren().add(hbox);
     }
 
     @FXML
