@@ -10,9 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="340f890d-d4df-4603-9bf0-304aa6c2c844" name="Changes" comment="rest api init">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/javafxbead/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/javafxbead/Filter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/javafxbead/SzoftverleltarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/javafxbead/SzoftverleltarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
     </list>
@@ -55,6 +53,14 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="2I2i9AKgWD1Q9AsR7pZqxOIZgDi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -96,7 +102,7 @@
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="javafxbead.SzoftverleltarApplication" />
-      <module name="Java_fx_szoftverleltar_beadando" />
+      <module name="javafx-bead" />
       <option name="PROGRAM_PARAMETERS" value="--add-modules jdk.unsupported" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -116,6 +122,7 @@
       <workItem from="1669837990356" duration="678000" />
       <workItem from="1669839209446" duration="2981000" />
       <workItem from="1669876100056" duration="5071000" />
+      <workItem from="1669923942661" duration="2408000" />
     </task>
     <task id="LOCAL-00001" summary="rest api init">
       <created>1669842145041</created>

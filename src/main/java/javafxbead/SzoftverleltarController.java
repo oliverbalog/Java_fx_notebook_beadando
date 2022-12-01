@@ -42,10 +42,7 @@ public class SzoftverleltarController {
 
     private TableView contentTable;
 
-
-    @FXML
-    protected void onOlvasMenuClick(Filter filter) throws IOException {
-        contentPane.getChildren().clear();
+    private TableView<TelepitesViewModel> GetTableViewForTelepites(){
         var idCol = new TableColumn("ID");
         var verzioCol = new TableColumn("Verzió");
         var datumCol = new TableColumn("Dátum");
@@ -68,27 +65,26 @@ public class SzoftverleltarController {
         nevCol.setCellValueFactory(new PropertyValueFactory<>("SzoftverNev"));
         kategoriaCol.setCellValueFactory(new PropertyValueFactory<>("SzoftverKategoria"));
 
-        contentTable = new TableView<TelepitesViewModel>();
+        var contentTableTmp = new TableView<TelepitesViewModel>();
 
-        contentTable.getColumns().addAll(idCol, verzioCol, datumCol, gepIdCol,
+        contentTableTmp.getColumns().addAll(idCol, verzioCol, datumCol, gepIdCol,
                 helyCol, tipusCol, ipcimCol, szoftverIdCol, nevCol, kategoriaCol);
+
+        return contentTableTmp;
+    }
+
+    @FXML
+    protected void onOlvasMenuClick() throws IOException {
+        contentPane.getChildren().clear();
+
+        contentTable = GetTableViewForTelepites();
 
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         SessionFactory factory = cfg.buildSessionFactory();
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
-        Query q;
+        Query q = session.createQuery("FROM Telepites");
 
-        if (filter == null) {
-            q = session.createQuery("FROM Telepites");
-        } else {
-            var hql = "FROM Telepites T";
-            if (!filter.getPcType().isEmpty() || !filter.getSoftName().isEmpty() || !filter.getPcPlace().isEmpty())
-                if (!filter.getPcPlace().isEmpty()) {
-
-                }
-            q = session.createQuery(hql);
-        }
         q.setFirstResult(0);
         q.setMaxResults(100);
         List<Telepites> telepitesList = q.getResultList();
@@ -132,7 +128,7 @@ public class SzoftverleltarController {
         SessionFactory factory = cfg.buildSessionFactory();
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
-        List<String> szoftverList = session.createQuery("SELECT Nev FROM Szoftver ").list();
+        List<String> szoftverList = session.createQuery("SELECT Nev FROM Szoftver").list();
         session.close();
 
         var hbox = new HBox();
@@ -162,25 +158,28 @@ public class SzoftverleltarController {
         vbox1.getChildren().add(textb);
 
         var label2 = new Label();
-        label2.setText("Válasszon egy szoftvert!");
-        vbox2.getChildren().add(label2);
+        label2.setText("Válasszon egy szoftvert!");;
         var combobox = new ComboBox<>();
+        combobox.getItems().add("Mind");
         combobox.getItems().addAll(szoftverList);
-        vbox2.getChildren().add(combobox);
+        combobox.getSelectionModel().select(0);
+        vbox2.getChildren().addAll(label2,combobox);
 
         String radioVal = "";
         var labelRadio = new Label();
         labelRadio.setText("Válasszon számítógép típust!");
-        vbox3.getChildren().add(labelRadio);
         var toggleGroup = new ToggleGroup();
         var radioButton1 = new RadioButton();
         radioButton1.setToggleGroup(toggleGroup);
         radioButton1.setText("Notebook");
-        vbox3.getChildren().add(radioButton1);
         var radioButton2 = new RadioButton();
         radioButton2.setToggleGroup(toggleGroup);
         radioButton2.setText("Asztali");
-        vbox3.getChildren().add(radioButton2);
+        var radioButtonAll = new RadioButton();
+        radioButtonAll.setToggleGroup(toggleGroup);
+        radioButtonAll.setText("Mind");
+        radioButtonAll.setSelected(true);
+        vbox3.getChildren().addAll(labelRadio,radioButton1,radioButton2,radioButtonAll);
 
 
         var labelCheck = new Label();
@@ -218,7 +217,7 @@ public class SzoftverleltarController {
         contentPane.getChildren().addAll(madeMenu, hbox, srchBtn);
 
 
-        srchBtn.setOnAction(event -> {
+        srchBtn.setOnMousePressed(event -> {
             var selRadBtn = (RadioButton) toggleGroup.getSelectedToggle();
             var selRadVal = selRadBtn.getText();
             searchWithFiltersResult(new Filter(textb.getText(), combobox.getValue().toString(),
@@ -228,7 +227,52 @@ public class SzoftverleltarController {
     }
 
     private void searchWithFiltersResult(Filter filter) {
+        contentPane.getChildren().clear();
 
+        contentTable = GetTableViewForTelepites();
+
+        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+
+        var hql = "FROM Telepites";
+
+
+        Query q = session.createQuery(hql);
+
+        q.setFirstResult(0);
+        q.setMaxResults(100);
+        List<Telepites> telepitesList = q.getResultList();
+        session.close();
+
+        for (Telepites telepites : telepitesList) {
+            System.out.println(telepites.getId());
+            contentTable.getItems().add(new TelepitesViewModel(
+                            telepites.getId(),
+                            telepites.getVerzio(),
+                            telepites.getDatum(),
+                            telepites.getGep().getId(),
+                            telepites.getGep().getHely(),
+                            telepites.getGep().getTipus(),
+                            telepites.getGep().getIpcim(),
+                            telepites.getSzoftver().getId(),
+                            telepites.getSzoftver().getNev(),
+                            telepites.getSzoftver().getKategoria()
+                    )
+            );
+        }
+
+        contentTable.setPrefWidth(1240);
+        contentTable.setPrefHeight(600);
+        contentTable.relocate(0, 30);
+
+        madeMenu.relocate(300, 700);
+        contentPane.getChildren().add(madeMenu);
+
+        contentPane.getChildren().add(contentTable);
+
+        factory.close();
     }
 
     @FXML
